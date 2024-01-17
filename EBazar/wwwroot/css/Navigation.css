@@ -1,0 +1,209 @@
+  /* Header a ul */
+  header{
+    background-color: #24252A;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 30px 10%;
+    max-height: 200px;
+    
+}
+.individual-link{
+    
+}
+
+header a,ul{
+text-decoration: none;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-weight: 500;
+color: rgb(255, 255, 255);
+font-size:large;
+list-style: none;
+transition: 0.8s ease;
+}
+header ul,a:hover{
+color:rgb(117, 117, 182);
+}
+.nav-links li{
+display: inline-block;
+padding: 0 20px;
+
+}
+/*
+Login/Register Buttons
+*/
+.login{
+    display:inline-block;
+text-decoration: none;
+color:rgb(255, 255, 255);
+transition: 0.8s ease;
+background-color: #24252A;
+border:1px solid white;
+padding:5px;
+border-radius: 2px;
+
+}
+.login::after{
+content: "";
+width: 0%;
+height: 2px;
+background: rgb(231, 31, 125);
+display: block;
+margin:auto;
+transition: 0.7s;
+margin-top: 0px;
+}
+.login:hover::after{
+width: 100%;
+
+}
+.login:hover{
+background-color:#0787ffB2;
+color:rgb(255, 255, 255);
+}
+/* Aligning Logo and Search bar  */
+.LogoAndSearch{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+#search{
+color: white;
+margin:2px ;
+}
+.logo{
+max-width:55px;
+border-radius: 30px;
+}
+
+/* Div Containng  Hamburgure Button for Mobiles to be hidden */
+.hamburger{
+    display:none ;
+}
+
+/* The actual hamburger button (made using spans) with class bar */
+.bar{
+    display: block;
+    width:20px;
+    height:4px;
+    color:white;
+    background-color: white;
+    margin: 5px auto;
+    -webkit-transition:all 0.3s ease-in-out;
+    transition:all 0.3s ease-in-out;
+}
+.nav-links-responsive a {
+    font-size: 4vw;
+  }
+
+/* RESPONSIVENESS */
+
+/*
+Mobile Elements to be hidden when screen size increses
+*/
+
+@media only screen and (min-width:1140px){
+    .nav-links-responsive,.login-buttons-responsive,.hamburger{ 
+        display: none;
+       
+    }
+}
+
+/* PC elements to be hidden and Mobile elements to be displayed when screen shrinks */
+@media only screen and (max-width: 1140px) {
+    .nav-links{
+        display: none;
+    }
+    .login-buttons {
+        font-size: 12px;
+    }
+    *{
+        
+        
+    }
+    .login-buttons-responsive a {
+        font-size: 12px; /* Adjust the font size for even smaller screens */
+      }
+      .nav-links-responsive a {
+        font-size: 12px;
+      }
+    .nav-links-responsive{
+        display: flex;
+        font-size: 12px;
+        
+    }
+    #home,#category{
+        display:none;
+    }
+    #mycart{
+        padding-left:10px;
+    }
+
+}
+@media only screen and (max-width: 1290px) {
+    #home1,#category1{
+        display: none;
+    }
+}
+@media only screen and (max-width:755px){
+    #allproducts{
+        display: none;
+    }
+}
+
+/*When the screen hits absolute mobile size */
+@media only screen and (min-width:615px) {
+    .login-buttons {
+        display: none;
+    }
+}
+
+    @media only screen and (max-width:615px) {
+        #mycart, .login-buttons-responsive {
+            display: none;
+        }
+
+        .hamburger {
+            display: block;
+            cursor: pointer;
+        }
+
+        
+
+        .hamburger.active.bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active.bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active.bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .nav-links {
+            display: flex;
+            position: fixed;
+            left: -100%;
+            top: 0px;
+            gap: 0;
+            flex-direction: column;
+            background-color: #24252A;
+            width: 85%;
+            text-align: center;
+            transition: left 1s ease;
+        }
+
+        .individual-link {
+            margin: 15px;
+            padding: 30px;
+            background-color: rgba(56, 58, 66, 0.9);
+        }
+
+        .nav-links.active {
+            left: 0;
+        }
+    }
+
+

@@ -1,0 +1,83 @@
+﻿@model AppUser
+
+@if (Model.Cart.CartItems.Any())
+{
+    <div class="container-sm" style="margin:30px;padding:30px">
+        @{
+            int count = 1;
+            int? total = 0;
+            int? subtotal = 0;
+
+        }
+
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+
+                    <th scope="col">Product Picture</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Sub-total</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart.CartItems)
+                {
+
+
+                    
+                    <tr>
+                        <th scope="row">@count</th>
+
+                        <td><img style="height:50px" src="@item.Product.PictureUrl"/></td>
+                        <td>@item.Product.Name</td>
+
+
+                        <td>@item.Quantity</td>
+                        @{
+                             subtotal = item.Quantity * item.Product.Price;   
+                        }
+                        <td>@subtotal</td>
+                        <div class="login-buttons">
+
+                        <td><a class="login"  asp-controller="Cart" asp-route-cartItemId="@item.Id" asp-action="RemoveCartItem">X</a></td>
+                        </div>
+
+                        
+                    </tr>
+                    count++;
+                    total = total + subtotal;
+
+                }
+                @{
+
+                }
+            </tbody>
+        </table>
+
+
+        <div class="container-fluid">
+            <div class="col-2 float-right">
+                <p>Total :<i>@total</i></p>
+            </div>
+          
+        </div>
+
+    </div>
+}
+else
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Your Shopping Cart is Empty :( </h2>
+                <a class="text-black" asp-controller="Product" asp-action="Index">Continue shopping</a>
+            </div>
+        </div>
+    </div>
+}

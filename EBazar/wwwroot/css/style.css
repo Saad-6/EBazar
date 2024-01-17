@@ -1,0 +1,185 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family:cursive;
+    /*
+    background-color: #24252A;
+*/
+}
+/**/
+/* Hero image on Home page 
+   And how to make it opaque
+*/
+.bg-img{
+   height: 50vw;
+   background-image:linear-gradient(rgb(41, 36, 36,0.8),rgb(46, 39, 39,0.8)), url(Images/header.jpg);
+    background-size: contain;
+    background-attachment: fixed;
+    background-color: rgba(255, 255, 255, 0.5); 
+    
+}
+/* Shop Now button on hero image and its animation */
+.shop{
+    background-color: #0787fffa;
+    color:white;
+    border-radius: 30px;
+    padding:10px;
+    margin-top: 15px;
+   
+    animation: DownToUp 2s ease-out forwards; 
+    opacity: 0; 
+    transform: translateY(400%);
+
+}
+.shop::after{
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: rgb(231, 31, 125);
+    display: block;
+    margin:auto;
+    transition: 0.7s;
+    margin-top: 2px;
+}
+.shop:hover{
+    background-color:#0787ffB2;
+    color: aliceblue;
+}
+.shop:hover::after{
+    width: 100%;
+ 
+}
+/* Text inside hero image  */
+.text-box{
+    color: white;
+    padding-top: 17%;
+    text-align: center;
+    
+
+}
+/* Text inside hero image to be animated  */
+.leftToright{
+    animation: LeftToRight 2s ease-out forwards; 
+    opacity: 0; 
+    transform: translateX(-100%);
+}
+/* Text inside hero image to be animated */
+.rightToleft{
+    animation:RightToLeft 2s ease-out forwards; 
+    opacity: 0; 
+    transform: translateX(100%);
+    margin-top:10px;
+}
+.txt{
+    margin-left:25%;
+    margin-top: 20px;
+    width: 50%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.txt img{
+ width:100%;
+ height:auto;
+}
+.txt img:hover{
+    opacity: 0.6;
+}
+.categories{
+    
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin:40px auto;
+    height:650px;
+}
+.categoryitem{
+    margin-top: 30px;
+    flex-grow: 1;
+    min-width: 33.33%;
+    
+    border:4px solid rgb(192, 177, 177);
+}
+#Cat1{
+    background-image:linear-gradient(rgb(41, 36, 36,0.5),rgb(46, 39, 39,0.5)), url(Images/fashion.jpg);
+    background-size: contain;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+#Cat1:hover,#Cat2:hover,#Cat3:hover,#Cat4:hover,#Cat5:hover{
+opacity: 0.8;
+}
+#Cat2{
+    background-image:linear-gradient(rgb(41, 36, 36,0.5),rgb(46, 39, 39,0.5)),url(Images/fitness.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+#Cat3{
+    background-image:linear-gradient(rgb(41, 36, 36,0.5),rgb(46, 39, 39,0.5)),url(Images/food.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+#Cat4{
+    background-image:linear-gradient(rgb(41, 36, 36,0.5),rgb(46, 39, 39,0.5)),url(Images/tech.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+#Cat5{
+    background-image:linear-gradient(rgb(41, 36, 36,0.5),rgb(46, 39, 39,0.5)),url(Images/Home\ and\ Furniture.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+.categoryname{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 100%;
+}
+.categoryname>div{
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    font-size: 25px;
+    font-family:cursive;
+    
+}
+.footer{
+    
+}
+.footer-contents{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media only screen and (max-width:1005px){
+    .categoryitem{
+     
+        min-width: 50%;
+        height:350px;
+    }
+}
+@media only screen and (max-width:745px){
+    .categoryitem{
+     min-width: 100%;
+
+    }
+}

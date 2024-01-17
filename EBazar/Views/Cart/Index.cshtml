@@ -1,0 +1,70 @@
+﻿@model Product
+<form method="post" asp-controller="Cart"asp-action="AddToCart">
+<div class="addtocart">
+    <div class="subdiv">
+        <p>Product Image</p>
+        <p>Name</p>
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>Total</p>
+    </div>
+    <div class="subsubdiv">
+        <img src="@Model.PictureUrl">
+        <p>@Model.Name</p>
+        <p>@Model.Price$</p>
+        <div class="Quantity">
+            <button type="button" class="minus-btn">-</button>
+            <input id="quantity" name="quantity" value="1">
+            <button type="button" class="plus-btn">+</button>
+        </div>
+        <p id="total">@Model.Price</p>
+    </div>
+</div>
+
+<div class="addbutton">
+    <a asp-controller="Product"asp-action="Index" class="buttonnn">Continue Shopping</a>
+
+        <input type="hidden" name="prodId" value="@Model.Id" />
+    <button type="submit" class="buttonn" id="addToCartButton">Add to Cart</button>
+</div>
+</form>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Update quantity when plus or minus button is clicked
+            $(".plus-btn").on("click", function () {
+                var quantityInput = $("#quantity");
+                quantityInput.val(parseInt(quantityInput.val()) + 1);
+                updateTotal();
+            });
+
+            $(".minus-btn").on("click", function () {
+                var quantityInput = $("#quantity");
+                var currentQuantity = parseInt(quantityInput.val());
+                if (currentQuantity > 1) {
+                    quantityInput.val(currentQuantity - 1);
+                    updateTotal();
+                }
+            });
+
+            // Update quantity in the Add to Cart button when input changes
+            $("#quantity").on("change", function () {
+                updateTotal();
+            });
+
+            // Function to update the total and set asp-route-quantity attribute
+            function updateTotal() {
+                var quantityInput = $("#quantity");
+                var totalElement = $("#total");
+                var addToCartButton = $("#addToCartButton");
+
+                var quantity = parseInt(quantityInput.val());
+                var total = quantity * @Model.Price; // Replace with the actual price
+
+                totalElement.text(total);
+            
+            }
+        });
+    </script>
+}

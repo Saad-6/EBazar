@@ -1,0 +1,29 @@
+﻿@using EBazar.Data.Enums
+@model Product
+
+<form method="post">
+    <div class="logincontents">
+        
+        <h4>Add a New Product</h4>
+        <label id="productnamelabel" for="ProductName">Product Name:</label>
+        <input placeholder="Product Name" asp-for="Name" type="text" id="ProductName">
+        <label id="productpiclabel" for="ProductPic">Product Picture Url:</label>
+        <input placeholder="Product Image  Url" asp-for="PictureUrl" type="text" id="ProductPic">
+        <label id="productdescriptionlabel" for="ProductDescription">Description:</label>
+        <input placeholder="Product Description" asp-for="Description" type="text" id="ProductDescription">
+        <label id="productpricelabel" for="ProductPrice">Price:</label>
+        <input placeholder="Product Name" type="number"asp-for="Price" id="ProductPrice">
+        <label id="productstocklabel" for="ProductStock">Stock:</label>
+        <input placeholder="Product Stock" type="number" asp-for="Stock" id="ProductStock">
+        <label id="productcategorylabel" for="category">Category</label>
+        <select asp-for="Category" class="cate">
+            <option class="cate" value="">-- Select Category --</option>
+            @foreach (var category in Enum.GetValues(typeof(Category)))
+            {
+                <option class="cate" value="@category">@category</option>
+            }
+        </select>
+        <button class="submit">Create New Product</button>
+       
+    </div>
+</form>

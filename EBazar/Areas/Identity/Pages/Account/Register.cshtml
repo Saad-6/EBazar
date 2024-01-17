@@ -1,0 +1,154 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+<style>
+    .logindiv {
+        margin-top: 100px;
+        height: 500px;
+        border: 1px solid rgb(192, 177, 177);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+    }
+
+    .logincontents {
+        border-radius: 30px;
+        margin: 50px;
+        padding-top:35px;
+        padding-bottom: 35px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+       
+        justify-content: center;
+        max-width:600px;
+    }
+
+    .submit {
+        margin-top: 15px;
+        margin-bottom: 2%;
+        padding: 8px;
+        border-radius: 10px;
+        text-decoration: none;
+        background-color: #24252A;
+        border: 2px solid white;
+        color: white;
+    }
+
+    #passwordlabel {
+    }
+
+    #emaillabel {
+        padding-top: 10px;
+    }
+
+    .submit::after {
+        content: "";
+        width: 0%;
+        height: 2px;
+        background: rgb(231, 31, 125);
+        display: block;
+        margin: auto;
+        transition: 0.7s;
+        margin-top: 0px;
+    }
+
+    .submit:hover::after {
+        width: 100%;
+    }
+
+    .submit:hover {
+        background-color: #0787ffB2;
+        color: rgb(255, 255, 255);
+    }
+
+    #registerForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cont{
+        display: flex;
+    
+        align-items: center;
+        justify-content: center;
+    }
+    .external{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding:50px;
+    }
+    #google:hover{
+        background-color:#EA4336;
+        color:white;
+    }
+    #google,#facebook{
+        transition: 0.7s;
+    }
+    #google:hover::after{
+        transition: 0.7s;
+    }
+    #facebook:hover::after{
+        transition: 0.7s;
+    }
+    #facebook:hover {
+        background-color:blue;
+        color: white;
+    }
+</style>
+
+<div class="cont">
+
+
+    <div class="logincontents">
+<h1 >@ViewData["Title"]</h1>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+           
+                
+
+
+                <label asp-for="Input.Email">Email:</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter your email" type="" id="email">
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+           
+            <label asp-for="Input.AppUserName">Username:</label>
+            <input asp-for="Input.AppUserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter your username" type="" id="email">
+            <span asp-validation-for="Input.AppUserName" class="text-danger"></span>
+
+
+            <label id="passwordlabel" asp-for="Input.Password">Password:</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" id="password">
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+         
+            
+               
+                <label id="confirmpasswordlabel" asp-for="Input.ConfirmPassword">Confirm Password:</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" id="confirmpassword">
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+            
+           
+            <button class="submit">Register</button>
+        </form>
+    </div>
+    <div class="external" style="height:350px; border:1px solid black;">
+        <h3>Log in Using</h3>
+        <a id="google" style="padding:20px;  border:1px solid grey; border-radius:10px;">Google <i class="bi bi-google"></i> </a>
+        <a id="facebook" style="margin-top:10px;padding:20px;  border:1px solid grey;border-radius:10px">Facebook <i class="bi bi-facebook"></i> </a>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

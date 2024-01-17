@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Product>
+@using EBazar.Data.Enums
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+
+    <a class="btn btn-success pt-3 mt-3" asp-controller="Product" asp-action="AddNew">Add New Product</a>
+}
+<h2 class="products-title">All Products</h2>
+<div class="list">
+    <div class="list-items">
+        <div class="list-item">
+            <label for="ByCategory">By Category</label>
+            <select id="ByCategory">
+                <option>All</option>
+                @foreach (var category in Enum.GetValues(typeof(Category)))
+                {
+                    <option class="cate" value="@category">@category</option>
+                }
+            </select>
+        </div>
+        <div class="list-item">
+            <label for="Filter">Filter bx Price</label>
+            <select id="Filter">
+                <option>All</option>
+                <option>0-1,000</option>
+                <option>1,000-10,000</option>
+                <option>10,000 +</option>
+
+            </select>
+        </div>
+        <div class="list-item">
+            <a class="">Top Rated </a>
+        </div>
+        <div class="list-item">
+            <form method="post" asp-action="Search">
+                <input style="padding: 0px; border-radius: 10px;" name="searchItem" placeholder="Search..."><button style="border:40px;" type="submit"><i style="margin-left: 5px;" id="" class="bi bi-search"></i> </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<section class="productdiv">
+    @foreach (var item in Model)
+    {
+        <div class="product">
+            <div style="background-image:url('@item.PictureUrl') ;" class="productimage"></div>
+            <div class="productdetail">
+                <h3><b>@item.Name</b></h3>
+                <i>@item.Description</i>
+                <p>Rating</p>
+            </div>
+            <div class="priceandcart">
+                <p style="margin:0px 10px;">Price:<b>@item.Price$</b></p>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id"> <button class="Delete">Delete</button></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><button class="Edit">Edit</button></a>
+
+                }
+                else if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+                {
+                    <a class="cart">Add to Cart <i class="bi bi-cart"></i></a>
+
+                }
+                else if (!User.Identity.IsAuthenticated)
+                {
+                    <a class="login" id="login" asp-area="Identity" asp-page="/Account/Login">Login to Add to Cart <i class="bi bi-cart"></i></a>
+                }
+            </div>
+        </div>
+    }
+</section>
+
+
