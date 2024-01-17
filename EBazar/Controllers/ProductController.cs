@@ -10,6 +10,9 @@ namespace EBazar.Controllers
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
+
+        // For using the API
+
         private readonly HttpClient _client;
         public ProductController(AppDbContext context, IHttpClientFactory httpClientFactory)
         {
@@ -17,15 +20,21 @@ namespace EBazar.Controllers
             _client = httpClientFactory.CreateClient();
             _client.BaseAddress = new Uri("https://localhost:44356");
         }
+
+        // Display all Products on the Index page
         public IActionResult Index()
         {
             var Prods=_context.Products.ToList();
             return View(Prods);
         }
+
+        // View For Adding a New Product
         public IActionResult AddNew()
         {
             return View();
         }
+
+        // Actually Adding The Product To DB
         [HttpPost]
         public IActionResult AddNew(Product obj)
         {
@@ -34,6 +43,8 @@ namespace EBazar.Controllers
          
             return RedirectToAction("Index","Home");
         }
+
+        // Seaching The Product From Current and Previous Project
         [HttpPost]
         public async Task<IActionResult> Search(string searchItem)
         {
@@ -56,7 +67,7 @@ namespace EBazar.Controllers
                     JArray json = JArray.Parse(apiResponse);
                     int count = json.Count();
                     
-                    // Create a new List to convert json to custom object
+                    // Create a new Product List to convert json to custom object
 
                     List<Product> products = new List<Product>();   
                     
@@ -95,11 +106,16 @@ namespace EBazar.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        // Edit a Product , First of all , Find it and Return it in a View to be Edited
         public IActionResult Edit(int id)
         {
             var prod=_context.Products.FirstOrDefault(m => m.Id == id);
             return View(prod);
         }
+
+
+        // Actually Editing the Product 
         [HttpPost]
         public IActionResult Edit(Product obj)
         {
@@ -111,12 +127,16 @@ namespace EBazar.Controllers
             }
             return RedirectToAction("Index","Product");
         }
+
+        // Delete a Product , First of all , Find it and Return it in a View to be Deleted
         public IActionResult Delete(int id)
         {
             var prod = _context.Products.FirstOrDefault(m => m.Id == id);
             return View(prod);
 
         }
+
+        // Actual Deletion Process
         [HttpPost]
         public IActionResult Delete(Product obj)
         {
