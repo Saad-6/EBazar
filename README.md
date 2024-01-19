@@ -1,13 +1,16 @@
 #Ecommerce Store MockUp with .Net
 
 ## Functionalities ...
+
+Pretty much all the real world functionality of an ecom store
+
 Create/Manage User Account
 
 Browse / Search Products
 
 Add Products to Cart
 
-Searches Products from an external Product if not found in the current DB
+Searches Products from an external Project if not found in the current DB
 
 
 ## Admin
