@@ -38,9 +38,13 @@ namespace EBazar.Controllers
         {
             //Getting the product
             var prod=_context.Products.FirstOrDefault(p => p.Id == prodId);
-            
+
             //await _context.SaveChangesAsync();
             //Calculating Total
+            if (prod == null)
+            {
+               return RedirectToAction("Index", "Home");
+            }
             var total = prod.Price * quantity;
             //Getting the AppUser object
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

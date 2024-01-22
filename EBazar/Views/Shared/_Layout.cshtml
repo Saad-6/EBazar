@@ -37,8 +37,9 @@
     <ul class="nav-links">
         <li class="individual-link"><a id="home1" asp-controller="Home" asp-action="Index">Home</a></li>
         <li class="individual-link"><a asp-controller="Product" asp-action="Index" >All Products</a></li>
-        <li class="individual-link" ><a id="category1" href="#">By Category</a></li>
         <li class="individual-link"><a asp-controller="Cart" asp-action="Cart"><i class="bi bi-cart"></i>My Cart</a></li>
+        <li class="individual-link" ><a id="category1" href="#">By Category</a></li>
+                <partial name="_LoginPartial" />
     
     </ul>
     <div class="hamburger">
@@ -52,7 +53,7 @@
 </div>
 <div class="login-buttons">
     
-            <partial name="_LoginPartial" />
+           
            
 </div>
 

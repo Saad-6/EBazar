@@ -4,6 +4,7 @@ using EBazar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EBazar.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122093358_hopefullyLast")]
+    partial class hopefullyLast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -432,7 +435,7 @@ namespace EBazar.Migrations
                         .WithMany("CartItems")
                         .HasForeignKey("CartId");
 
-                    b.HasOne("EBazar.Models.Order", "Order")
+                    b.HasOne("EBazar.Models.Order", null)
                         .WithMany("CartItems")
                         .HasForeignKey("OrderId");
 
@@ -441,8 +444,6 @@ namespace EBazar.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });

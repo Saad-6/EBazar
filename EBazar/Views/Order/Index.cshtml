@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Order>
+
+<div class="container" style="padding:70px; margin=50px; ">
+    <div class="container-fluid">
+        <h2 class="text-center">Order History</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Total</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample order data -->
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.CreatedDate</td>
+                        <td>@item.OrderStatus</td>
+                        <td>@item.total</td>
+                        <td><a asp-controller="Order" asp-route-id="@item.Id" asp-action="Details"> Click here </a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       
+        <div>
+
+        </div>
+
+    </div>
+
+</div>

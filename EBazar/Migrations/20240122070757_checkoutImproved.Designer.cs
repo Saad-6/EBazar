@@ -4,6 +4,7 @@ using EBazar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EBazar.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122070757_checkoutImproved")]
+    partial class checkoutImproved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace EBazar.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("EBazar.Models.AppUser", b =>
@@ -155,9 +158,6 @@ namespace EBazar.Migrations
                     b.Property<int?>("CartId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -167,8 +167,6 @@ namespace EBazar.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -184,6 +182,9 @@ namespace EBazar.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CartId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -202,12 +203,11 @@ namespace EBazar.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("total")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("Orders");
                 });
@@ -432,17 +432,11 @@ namespace EBazar.Migrations
                         .WithMany("CartItems")
                         .HasForeignKey("CartId");
 
-                    b.HasOne("EBazar.Models.Order", "Order")
-                        .WithMany("CartItems")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("EBazar.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -455,7 +449,13 @@ namespace EBazar.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EBazar.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId");
+
                     b.Navigation("Address");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("EBazar.Models.Rating", b =>
@@ -523,11 +523,6 @@ namespace EBazar.Migrations
                 });
 
             modelBuilder.Entity("EBazar.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("EBazar.Models.Order", b =>
                 {
                     b.Navigation("CartItems");
                 });

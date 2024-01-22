@@ -31,6 +31,11 @@ namespace EBazar.Controllers
         // View For Adding a New Product
         public IActionResult AddNew()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index","Home");
+            }
+
             return View();
         }
 
@@ -38,6 +43,12 @@ namespace EBazar.Controllers
         [HttpPost]
         public IActionResult AddNew(Product obj)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
             _context.Products.Add(obj);
             _context.SaveChanges();
          
@@ -48,69 +59,75 @@ namespace EBazar.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string searchItem)
         {
-            if(searchItem != null)
+            if (searchItem != null)
             {
-                // Find products in current project
+                // Find products in the current project
                 var matchingProducts = _context.Products
-                .Where(p => p.Name.ToUpper().Contains(searchItem.ToUpper()))
-                .ToList();
+                    .Where(p => p.Name.ToUpper().Contains(searchItem.ToUpper()))
+                    .ToList();
 
-                // If not found call the search API of the other project
-                if (matchingProducts.Count==0)
+                // If not found, call the search API of the other project
+                if (matchingProducts.Count == 0)
                 {
-                   // Calling the api and storing json response (Response is a List)
-                    
-                    var apiResponse = await _client.GetStringAsync("/api/ProductAPI/Search?query=" + searchItem);
-                    
-                    // Parse the List and keep count of total prods returned
-                    
-                    JArray json = JArray.Parse(apiResponse);
-                    int count = json.Count();
-                    
-                    // Create a new Product List to convert json to custom object
-
-                    List<Product> products = new List<Product>();   
-                    
-                    // Iterate through each parsed index and assign values to a new product object each time 
-                    // at the end of the loop , add the product object to the products list
-                    // 
-                    for(int i = 0; i < count; i++)
+                    try
                     {
-                        var product = new Product
+                        // Calling the API and storing JSON response (Response is a List)
+                        var apiResponse = await _client.GetStringAsync("/api/ProductAPI/Search?query=" + searchItem);
+
+                        // Parse the List and keep count of total prods returned
+                        if (!string.IsNullOrEmpty(apiResponse))
                         {
-                            Id = (int)json[i]["id"],           
-                            Name = (string)json[i]["name"],      
-                            PictureUrl = (string)json[i]["pictureUrl"],
-                            Description = (string)json[i]["description"],
-                            Price = (int)json[i]["price"]
-                         
-                        };
-                        products.Add(product);
+                            JArray json = JArray.Parse(apiResponse);
+                            int count = json.Count();
 
+                            // Create a new Product List to convert JSON to a custom object
+                            List<Product> products = new List<Product>();
+
+                            // Iterate through each parsed index and assign values to a new product object each time
+                            // at the end of the loop, add the product object to the products list
+                            for (int i = 0; i < count; i++)
+                            {
+                                var product = new Product
+                                {
+                                    Id = (int)json[i]["id"],
+                                    Name = (string)json[i]["name"],
+                                    PictureUrl = (string)json[i]["pictureUrl"],
+                                    Description = (string)json[i]["description"],
+                                    Price = (int)json[i]["price"]
+                                };
+                                products.Add(product);
+                            }
+
+                            // If at least one product is found, return it to the view
+                            if (products.Count > 0)
+                            {
+                                return View(products);
+                            }
+                        }
                     }
-                   
-                    // If atleast one product is found return it to the VIew
-                    if (products.Count>0)
+                    catch (HttpRequestException)
                     {
-
-                    return View(products);
+                        // Handle the exception, log it, or redirect to an error page
+                        // Example: return RedirectToAction("Error");
                     }
-
                 }
 
                 return View(matchingProducts);
-
             }
-            
-           
 
             return RedirectToAction("Index", "Home");
         }
 
+
         // Edit a Product , First of all , Find it and Return it in a View to be Edited
         public IActionResult Edit(int id)
         {
-            var prod=_context.Products.FirstOrDefault(m => m.Id == id);
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var prod =_context.Products.FirstOrDefault(m => m.Id == id);
             return View(prod);
         }
 
@@ -119,7 +136,12 @@ namespace EBazar.Controllers
         [HttpPost]
         public IActionResult Edit(Product obj)
         {
-            if(obj != null)
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (obj != null)
             {
                 _context.Products.Update(obj);
                 _context.SaveChanges();
@@ -131,6 +153,11 @@ namespace EBazar.Controllers
         // Delete a Product , First of all , Find it and Return it in a View to be Deleted
         public IActionResult Delete(int id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var prod = _context.Products.FirstOrDefault(m => m.Id == id);
             return View(prod);
 
@@ -140,6 +167,11 @@ namespace EBazar.Controllers
         [HttpPost]
         public IActionResult Delete(Product obj)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (obj != null)
             {
                 _context.Products.Remove(obj);

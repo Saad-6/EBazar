@@ -1,0 +1,111 @@
+﻿@model Order
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="container my-4 py-4">
+
+        <div class="container-fluid">
+            <h3 class="text-danger"> You are not authorized to view this page</h3>
+        </div>
+
+    </div>
+}
+else{
+
+
+<div class="container" style="padding:70px; margin=50px; ">
+    <div class="container-fluid">
+        <h2 class="text-center">Order Detail</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Total</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample order data -->
+                
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.CreatedDate</td>
+                        <td>@Model.OrderStatus</td>
+                        <td>@Model.total</td>
+                        
+                    </tr>
+                
+            </tbody>
+        </table>
+
+        <table class="table table-bordered">
+            <h4>Address</h4>
+            <thead>
+                <tr>
+                    <th>Province</th>
+                    <th>City</th>
+                    <th>Street Address</th>
+                    
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample order data -->
+
+                <tr>
+                    
+                        <td>@Model.Address.Province</td>
+                    <td>@Model.Address.District</td>
+                    <td>@Model.Address.StreetAddress</td>
+                   
+                    
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Quantity</th>
+                    <th>Subtotal</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample order data -->
+
+                    @foreach (var item in Model.CartItems)
+                    {
+                        int? sub = item.Quantity * item.Product.Price;
+                <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@sub</td>
+                </tr>
+
+                    }
+
+            </tbody>
+        </table>
+
+
+        <div>
+        </div>
+
+    </div>
+
+</div>
+}

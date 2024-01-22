@@ -1,0 +1,36 @@
+﻿namespace ThreePointZero.Data.Enums.Address
+{
+    public enum SindhDistricts
+    {
+        KarachiCentral,
+        KarachiEast,
+        KarachiSouth,
+        KarachiWest,
+        Malir,
+        Korangi,
+        Hyderabad,
+        Dadu,
+        Matiari,
+        TandoAllahyar,
+        TandoMuhammadKhan,
+        Thatta,
+        Sujawal,
+        Badin,
+        MirpurKhas,
+        Tharparkar,
+        Umerkot,
+        Sanghar,
+        Khairpur,
+        NaushahroFeroze,
+        Nawabshah,
+        Larkana,
+        KamberShahdadkot,
+        Jacobabad,
+        Shikarpur,
+        Kashmore,
+        Ghotki,
+        Sukkur,
+        KhairpurNathanShah,
+        Jamshoro
+    }
+}

@@ -1,0 +1,42 @@
+﻿namespace ThreePointZero.Data.Enums.Address
+{
+    public enum PunjabDistricts
+    {
+
+        Bahawalpur,
+        Bahawalnagar,
+        RahimYarKhan,
+        Gujranwala,
+        Gujrat,
+        Hafizabad,
+        MandiBahauddin,
+        Narowal,
+        Sialkot,
+        Rawalpindi,
+        Jhelum,
+        Chakwal,
+        Attock,
+        DeraGhaziKhan,
+        Layyah,
+        Muzaffargarh,
+        Rajanpurm,
+        Lahore,
+        Kasur,
+        NankanaSahib,
+        Sheikhupura,
+        Sahiwal,
+        Pakpattan,
+        Okara,
+        Faisalabad,
+        Chiniot,
+        TobaTekSingh,
+        Jhang,
+        Multan,
+        Lodhran,
+        Khanewal,
+        Vehari,
+        Sargodha,
+        Khushab,
+        Mianwali
+    }
+}

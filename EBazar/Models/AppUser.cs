@@ -5,6 +5,7 @@ namespace EBazar.Models
     public class AppUser:IdentityUser
     {
         public string? AppUserName { get; set; }
+        public Address? Address { get; set; }
         public string? StoreName { get; set; }
         public string? ProfilePictureUrl { get; set; }
 
@@ -12,6 +13,7 @@ namespace EBazar.Models
 
         public AppUser()
         {
+            Address = new Address();
 
             Cart = new Cart();
 

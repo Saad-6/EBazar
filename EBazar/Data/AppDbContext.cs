@@ -16,5 +16,9 @@ namespace EBazar.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Order> Orders { get; set; }    
+
     }
     }

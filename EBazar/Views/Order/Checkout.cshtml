@@ -1,0 +1,175 @@
+﻿@model AppUser
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="container my-4 py-4">
+
+        <div class="container-fluid">
+             <h3 class="text-danger"> You are not authorized to view this page</h3>
+        </div>
+
+</div>
+}
+
+@if (Model!=null)
+{
+
+
+
+    <div class="row">
+
+        <div class="col-md-8 mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Biling details</h5>
+                </div>
+                <div class="card-body">
+
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row mb-4">
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Full Name</label>
+                                <input type="text" id="form7Example2" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text input -->
+                    <div class="form-outline mb-4">
+
+                        <form method="post" asp-controller="Order" asp-action="MakePayment" >
+                            <label class="form-label" for="form7Example4">Address</label>
+                            <select style="padding:15px;" asp-for="@Model.Address.Province" id="Province" class="form-control">
+                                <option>Select Province</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Sindh">Sindh</option>
+                                <option value="KPK">KPK</option>
+                                <option value="Balochistan">Balochistan</option>
+                            </select>
+                            <select style="padding:15px;" asp-for="@Model.Address.District" id="District" class="form-control">
+                                <option>Select District</option>
+
+                            </select>
+                            <input style="padding:15px;" asp-for="@Model.Address.StreetAddress" class="form-control form-control-sm" placeholder="Your Street Address" />
+
+                            <button type="submit" id="autosubmit" hidden>Submit</button>
+                        </form>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Summary</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+
+
+                            <br />
+
+                            <span>$6</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Shipping
+                            <span>Gratis</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Total amount</strong>
+                                <strong>
+                                    <p class="mb-0">(including VAT)</p>
+                                </strong>
+                            </div>
+                            <span><strong>$@Model.Cart.total</strong></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <label for="COD"> Cash on Delievery</label><input id="COD" type="radio" value="">
+                        </li>
+                    </ul>
+
+                    <button type="submit" id="dummy" class="btn btn-primary btn-lg btn-block">
+                        Make purchase
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+}
+@if(Model!=null)
+{
+
+    <div class="container" style="margin:45px; padding-right:100px;">
+
+        <div class="row">
+            <div class="col-6">
+                <select class="form-control form-control-lg">
+                    <option>@Model.Address.Province</option>
+                </select>
+                <select class="form-control">
+                    <option>@Model.Address.District</option>
+                </select>
+                <input class="form-control form-control-sm" value="@Model.Address.StreetAddress" />
+
+            </div>
+            <a class="btn btn-secondary" asp-controller="" asp-action="">Enter a new address?</a>
+
+            <a class="btn btn-dark text-light" asp-controller="" asp-action="">Continue to payment</a>
+        </div>
+
+    </div>
+
+
+}
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Province').change(function () {
+                var selectedProvince = $(this).val();
+
+                // AJAX call to retrieve district data based on the selected province
+                $.ajax({
+                    type: 'GET',
+                    url: '/Order/GetDistricts', // Change the URL to your endpoint
+                    data: { province: selectedProvince },
+                    success: function (data) {
+                        $('#District').empty(); // Clear the district dropdown
+
+                        // Populate the district dropdown with options
+                        $.each(data, function (key, value) {
+                            $('#District').append($('<option>').text(value).val(key));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                    }
+                });
+            });
+        });
+        const button = document.getElementById('dummy');
+
+
+        button.addEventListener('click', function (event) {
+
+            document.getElementById("autosubmit").click();
+
+        });
+
+    </script>
+
+}
