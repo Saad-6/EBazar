@@ -89,6 +89,12 @@ namespace EBazar.Controllers
         public async Task<IActionResult> RemoveCartItemAsync(int cartItemId)
         {
            var cartItem= _context.CartItems.FirstOrDefault(m => m.Id == cartItemId);
+
+            if (cartItem == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var appUser = await _userManager.Users
      .Include(u => u.Cart)

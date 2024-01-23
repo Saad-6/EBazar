@@ -21,8 +21,8 @@ font-size:large;
 list-style: none;
 transition: 0.8s ease;
 }
-header ul,a:hover{
-color:rgb(117, 117, 182);
+header ul, a:hover {
+ color: rgb(231, 31, 125);
 }
 .nav-links li{
 display: inline-block;
@@ -111,11 +111,8 @@ Mobile Elements to be hidden when screen size increses
 
 /* PC elements to be hidden and Mobile elements to be displayed when screen shrinks */
 @media only screen and (max-width: 1140px) {
-    .nav-links{
+    .nav-links,.login-buttons{
         display: none;
-    }
-    .login-buttons {
-        font-size: 12px;
     }
     *{
         
@@ -152,58 +149,50 @@ Mobile Elements to be hidden when screen size increses
 }
 
 /*When the screen hits absolute mobile size */
-@media only screen and (min-width:615px) {
-    .login-buttons {
-        display: none;
-    }
+
+
+@media only screen and (max-width:615px){
+ #mycart,.login-buttons-responsive{
+    display: none;
+ }
+
+ .hamburger{
+     display: block;
+    cursor: pointer;
+   
+ }
+.hamburger.active.bar:nth-child(2){
+    opacity: 0;
+}
+.hamburger.active.bar:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active.bar:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
 }
 
-    @media only screen and (max-width:615px) {
-        #mycart, .login-buttons-responsive {
-            display: none;
-        }
-
-        .hamburger {
-            display: block;
-            cursor: pointer;
-        }
-
-        
-
-        .hamburger.active.bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active.bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-
-        .hamburger.active.bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        .nav-links {
-            display: flex;
-            position: fixed;
-            left: -100%;
-            top: 0px;
-            gap: 0;
-            flex-direction: column;
-            background-color: #24252A;
-            width: 85%;
-            text-align: center;
-            transition: left 1s ease;
-        }
-
-        .individual-link {
-            margin: 15px;
-            padding: 30px;
-            background-color: rgba(56, 58, 66, 0.9);
-        }
-
-        .nav-links.active {
-            left: 0;
-        }
-    }
+.nav-links{
+    display: flex; 
+    position: fixed;
+    left:-100%;
+    
+    top: 0px;
+    gap:0;
+    flex-direction: column;
+    background-color: #24252A;
+    width: 85% ;
+    text-align: center;
+    transition: left 1s ease;
+}
+.individual-link{
+    margin:15px;
+    padding:30px;
+    background-color: rgba(56, 58, 66, 0.9);
+    
+}
+.nav-links.active{
+ left: 0;
+}
+}
 
 

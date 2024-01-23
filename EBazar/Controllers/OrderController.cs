@@ -38,8 +38,11 @@ namespace EBazar.Controllers
             .Include(u => u.Cart)
             .ThenInclude(c => c.CartItems).ThenInclude(b => b.Product)
             .FirstOrDefaultAsync(u => u.Id == userId);
-
+            if(appUser.Cart.CartItems.Any()) {
+            
             return View(appUser);
+            }
+            return RedirectToAction("Index","Home");
         }
         public async Task<IActionResult> MakePaymentAsync(Address address)
         {

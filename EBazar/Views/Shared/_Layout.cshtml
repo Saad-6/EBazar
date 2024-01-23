@@ -22,9 +22,10 @@
 <body>
     <header>
        <div class="LogoAndSearch">
-            <img class="logo" src="~/css/Images/Untitled design.png">
-            <input style="padding: 7px; border-radius: 70px;" placeholder="Search..."><i id="search"class="bi bi-search"></i>
-
+            <a asp-controller="Home"asp-action="Index"><img class="logo" src="~/css/Images/Untitled design.png"></a>
+            <form asp-controller="Product" asp-action="Search">
+                <input style="padding: 7px; border-radius: 70px;" name="searchItem" placeholder="Search..."><button style="border:0px; background-color: #24252A;color:white;" type="submit"><i id="search" class="bi bi-search"></i></button>
+            </form>
         </div>
 <nav>
     <ul class="nav-links-responsive">
@@ -59,10 +60,9 @@
 
 
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+  
             @RenderBody()
-        </main>
+        
     </div>
 
     <footer class="border-top footer text-muted">

@@ -1,0 +1,120 @@
+﻿
+<style>
+    body {
+        background: #24252A;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        color: #24252A;
+        background-color: white;
+        transition: 0.7s ease-in;
+        box-shadow: none;
+        border: none;
+        padding: 10px;
+    }
+
+    .neww {
+        height: 5px;
+        background-color: white;
+    }
+
+    #savprof {
+        background-color: #24252A;
+        color: white;
+        transition: 0.7s ease-in;
+    }
+
+    #saveprof:hover {
+        background-color: #24252A;
+        color: white;
+    }
+
+    .profile-button:hover {
+        background: #682773
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+
+    #con {
+        border-top: 2px solid white;
+    }
+</style>
+<div class="neww">
+</div>
+
+<div id="con" class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><span class="font-weight-bold">Admin</span><span class="text-black-50">admin********.com</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+
+
+                <form method="post" asp-action="EditProfile">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right text-center"> Manage Store</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <a class="buttonn mt-3 mb-3 text-center" asp-controller="Account" asp-action=""> Create a new admin </a>
+                        <a class="buttonnn  mt-3 mb-3 text-center" asp-controller="Account" asp-action="">Remove an Admin  </a>
+                        <a class="buttonn  mt-3 mb-3 text-center" asp-controller="Account" asp-action="">Delete a regular user</a>
+                        <a class="buttonnn  mt-3 mb-3 text-center" asp-controller="Account" asp-action="">Manage Orders </a>
+                        </div>
+                    <div class="row mt-3">
+                        
+                        
+                            <div class="address">
+                             
+
+                               
+                            </div>
+                        
+                     
+
+                    </div>
+                    <div class="row mt-3">
+                    </div>
+                    
+                </form>
+
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

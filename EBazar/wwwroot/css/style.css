@@ -14,7 +14,7 @@
 .bg-img{
    height: 50vw;
    background-image:linear-gradient(rgb(41, 36, 36,0.8),rgb(46, 39, 39,0.8)), url(Images/header.jpg);
-    background-size: contain;
+    background-size: cover;
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.5); 
     
@@ -83,8 +83,12 @@
     
 }
 .txt img{
- width:100%;
- height:auto;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0px;
+    background-size: cover;
+    display: block;
 }
 .txt img:hover{
     opacity: 0.6;
