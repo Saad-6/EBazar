@@ -1,0 +1,146 @@
+﻿@model AppUser
+
+<style>
+    .product-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-details {
+        padding: 15px;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .product-description {
+        color: #555;
+    }
+
+    .product-price {
+        color: #4caf50;
+        font-weight: bold;
+    }
+
+    .add-to-cart {
+        padding: 15px;
+        text-align: center;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #45a049;
+        }
+</style>
+@if (Model.Store != null)
+{
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Store Dashboard</h4>
+                        <p>Welcome, @Model.AppUserName! Your Store: @Model.Store.Name</p>
+                    </div>
+                    <div class="card-body">
+                        <!-- Product Management Section -->
+                        <h5 class="card-title">Product Management</h5>
+                        <a asp-controller="Store"asp-action="AddProduct" class="buttonn">Add Product</a>
+
+                        <!-- Product List Section -->
+                        <h5 class="card-title mt-4">Your Products</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <!-- Add more columns as needed -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <section class="productdiv">
+                                @foreach (var item in Model.Store.Products)
+                                {
+                                        <div class="product">
+                                            <div style="background-image:url('@item.PictureUrl') ;" class="productimage"></div>
+                                            <div class="productdetail">
+                                                <h3><b>@item.Name</b></h3>
+                                                <i>@item.Description</i>
+                                                <p>Rating</p>
+                                            </div>
+                                            <div class="priceandcart">
+                                                <p style="margin:0px 10px;">Price:<b>@item.Price$</b></p>
+                                                @if (User.Identity.IsAuthenticated )
+                                                {
+                                                    <a asp-controller="Store" asp-action="Delete" asp-route-id="@item.Id"> <button class="Delete">Delete</button></a>
+                                                    <a asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id"><button class="Edit">Edit</button></a>
+
+                                                }
+                                                
+
+
+                                            </div>
+                                        </div>
+                                }
+                               </section>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Store Stats</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Revenue
+                                <span class="badge badge-primary badge-pill">$@Model.Store.TotalRevenue</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Orders
+                                <span class="badge badge-primary badge-pill">@Model.Store.TotalOrders</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>Order Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <a asp-action="ManageOrders"asp-controller="Store" class="btn btn-success">Manage Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <h3>You do not currently have a store </h3>
+    <a asp-controller="Store" asp-action="OpenStore">Create one?</a>
+
+}

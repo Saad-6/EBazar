@@ -34,7 +34,7 @@ namespace EBazar.Controllers
         public async Task<IActionResult> Checkout()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var appUser = await _userManager.Users
+            var appUser = await _userManager.Users.Include(u => u.Address)
             .Include(u => u.Cart)
             .ThenInclude(c => c.CartItems).ThenInclude(b => b.Product)
             .FirstOrDefaultAsync(u => u.Id == userId);
@@ -118,7 +118,7 @@ namespace EBazar.Controllers
                     return Json(Enum.GetNames(typeof(KPKDistricts)).ToList());
 
                 default:
-                    return Json(new List<string>()); // Return an empty list if no match
+                    return Json(new List<string>()); 
             }
         }
 

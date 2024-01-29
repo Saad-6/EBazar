@@ -7,12 +7,13 @@
 @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
 {
    
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="login">Logout</button>
-        <a title="Manage Account"asp-controller="Account" asp-action="Index" class="login"><i class="bi bi-person-gear"></i></a>
+   
+    <a class="login" title="Manage Account" asp-controller="Account" asp-action="Index" id="login"><i class="bi bi-person-gear"></i></a>
+        <form class="login" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button id="logout" type="submit" title="Manage Account" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="login">Logout</button>
         </form>
-    </li>
+       
+   
 }
 @if(User.IsInRole("Admin"))
 {

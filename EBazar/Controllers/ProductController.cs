@@ -1,5 +1,6 @@
 ﻿using EBazar.Data;
 using EBazar.Models;
+using EBazar.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
@@ -9,22 +10,24 @@ namespace EBazar.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly AppDbContext _context;
+        
+        private readonly IProductService _service;
 
         // For using the API
 
         private readonly HttpClient _client;
-        public ProductController(AppDbContext context, IHttpClientFactory httpClientFactory)
+        public ProductController( IHttpClientFactory httpClientFactory, IProductService service)
         {
-            _context = context;
+            
+            _service = service;
             _client = httpClientFactory.CreateClient();
             _client.BaseAddress = new Uri("https://localhost:44356");
         }
 
         // Display all Products on the Index page
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var Prods=_context.Products.ToList();
+            var Prods= await _service.GetAllProductsAsync();
             return View(Prods);
         }
 
@@ -41,16 +44,17 @@ namespace EBazar.Controllers
 
         // Actually Adding The Product To DB
         [HttpPost]
-        public IActionResult AddNew(Product obj)
+        public async Task<IActionResult> AddNewAsync(Product obj)
         {
             if (!User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
 
-
-            _context.Products.Add(obj);
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+               await _service.AddProductAsync(obj);
+            }
          
             return RedirectToAction("Index","Home");
         }
@@ -62,12 +66,10 @@ namespace EBazar.Controllers
             if (searchItem != null)
             {
                 // Find products in the current project
-                var matchingProducts = _context.Products
-                    .Where(p => p.Name.ToUpper().Contains(searchItem.ToUpper()))
-                    .ToList();
+                var matchingProducts = await _service.GetProductByNameAsync(searchItem);
 
                 // If not found, call the search API of the other project
-                if (matchingProducts.Count == 0)
+                if (matchingProducts==null)
                 {
                     try
                     {
@@ -107,8 +109,7 @@ namespace EBazar.Controllers
                     }
                     catch (HttpRequestException)
                     {
-                        // Handle the exception, log it, or redirect to an error page
-                        // Example: return RedirectToAction("Error");
+                       
                     }
                 }
 
@@ -120,21 +121,21 @@ namespace EBazar.Controllers
 
 
         // Edit a Product , First of all , Find it and Return it in a View to be Edited
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> EditAsync(int id)
         {
             if (!User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            var prod =_context.Products.FirstOrDefault(m => m.Id == id);
+           var prod= await _service.GetProductByIdAsync(id);
             return View(prod);
         }
 
 
         // Actually Editing the Product 
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public async Task<IActionResult> EditAsync(Product obj)
         {
             if (!User.IsInRole("Admin"))
             {
@@ -143,29 +144,28 @@ namespace EBazar.Controllers
 
             if (obj != null)
             {
-                _context.Products.Update(obj);
-                _context.SaveChanges();
+               await _service.UpdateProductAsync(obj);
                
             }
             return RedirectToAction("Index","Product");
         }
 
         // Delete a Product , First of all , Find it and Return it in a View to be Deleted
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (!User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            var prod = _context.Products.FirstOrDefault(m => m.Id == id);
+            var prod = await _service.GetProductByIdAsync(id);
             return View(prod);
 
         }
 
         // Actual Deletion Process
         [HttpPost]
-        public IActionResult Delete(Product obj)
+        public async Task<IActionResult> DeleteAsync(Product obj)
         {
             if (!User.IsInRole("Admin"))
             {
@@ -174,8 +174,7 @@ namespace EBazar.Controllers
 
             if (obj != null)
             {
-                _context.Products.Remove(obj);
-                _context.SaveChanges();
+                await _service.DeleteProductAsync(obj);
 
             }
             return RedirectToAction("Index", "Product");

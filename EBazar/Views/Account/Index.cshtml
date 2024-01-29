@@ -64,13 +64,21 @@
         border-top:2px solid white;
     }
 </style>
+@if (Model == null)
+{
+    <h3 class="text-danger text-center m-3 p-4">You do not have permission to view this page</h3>
+
+}
+else{
+    
+
 <div class="neww">
 
 </div>
 <div id="con" class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="@Model.ProfilePictureUrl"><span class="font-weight-bold">@Model.AppUserName</span><span class="text-black-50">@Model.UserName</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="@Model.ProfilePictureUrl"><span class="font-weight-bold">@Model.AppUserName</span><span class="text-black-50">@Model.UserName</span><span> <span class="py-3"><a asp-action="OpenStore"asp-controller="Store" > Store</a></span></span></div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -78,9 +86,9 @@
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels"> User Name :</label><input type="text" asp-for="@Model.AppUserName" class="form-control" value="@Model.AppUserName"></div>
+                    <div class="col-md-6"><label class="labels"> User Name :</label><input readonly type="text" asp-for="@Model.AppUserName" class="form-control" value="@Model.AppUserName"></div>
                   
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" asp-for="@Model.UserName" value="@Model.UserName"></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input readonly type="text" class="form-control" asp-for="@Model.UserName" value="@Model.UserName"></div>
                 </div>
                 <div class="row mt-3">
                     @if (Model.Address != null)
@@ -88,9 +96,9 @@
                         <div class="address">
                             <h3 class="">Address</h3>
                            
-                            <div class="col-md-12"><label class="labels">Province</label><input asp-for="@Model.Address.Province" type="text" class="form-control" placeholder="eg..Punjab " value=""></div>
-                            <div class="col-md-12"><label class="labels">City</label><input asp-for="@Model.Address.District" type="text" class="form-control" placeholder="City/District" value=""></div>
-                            <div class="col-md-12"><label class="labels">Street Address</label><input asp-for="@Model.Address.StreetAddress" type="text" class="form-control" placeholder="Street No/Apart No" value=""></div>
+                            <div class="col-md-12"><label class="labels">Province</label><input asp-for="@Model.Address.Province" type="text" readonly class="form-control"></div>
+                            <div class="col-md-12"><label class="labels">City</label><input asp-for="@Model.Address.District" type="text" readonly class="form-control" ></div>
+                            <div class="col-md-12"><label class="labels">Street Address</label><input asp-for="@Model.Address.StreetAddress" readonly type="text" class="form-control"></div>
 
                         </div>
                     }
@@ -122,5 +130,4 @@
         </div>
     </div>
 </div>
-</div>
-</div>
+}

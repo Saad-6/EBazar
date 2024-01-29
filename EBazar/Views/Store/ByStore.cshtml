@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Store>
+
+
+<section class="productdiv">
+    @foreach (var item in Model)
+    {
+        int a = 1;
+        <div class="product">
+            <a asp-controller="Store" asp-route-id="@item.Id" asp-action="StoreDetail"> <div style="background-image:url('https://source.unsplash.com/featured/?store&@DateTime.Now.Ticks ');" class="productimage"></div></a>
+            <div class="productdetail">
+                <h3><a asp-controller="Store" asp-route-id="@item.Id" asp-action="StoreDetail">Store Name: <b>@item.Name</b></a></h3>
+                <i><p>Store Description: </p>@item.Description</i>
+                <p></p>
+            </div>
+            <div class="priceandcart">
+                <p style="margin:0px 10px;"><b></b></p>
+                
+
+            </div>
+        </div>
+        a++;
+    }
+</section>

@@ -11,7 +11,16 @@
 .individual-link{
     
 }
-
+#logout {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    transition: 0.8s ease;
+    background-color: #24252A;
+    border:0px;
+    padding: 5px;
+  
+}
 header a,ul{
 text-decoration: none;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,7 +31,7 @@ list-style: none;
 transition: 0.8s ease;
 }
 header ul, a:hover {
- color: rgb(231, 31, 125);
+    color: #0787ffB2;
 }
 .nav-links li{
 display: inline-block;
@@ -119,18 +128,21 @@ Mobile Elements to be hidden when screen size increses
         
     }
     .login-buttons-responsive a {
-        font-size: 12px; /* Adjust the font size for even smaller screens */
+        font-size: 19px; /* Adjust the font size for even smaller screens */
       }
       .nav-links-responsive a {
-        font-size: 12px;
+        font-size: 15px;
       }
     .nav-links-responsive{
         display: flex;
         font-size: 12px;
         
     }
-    #home,#category{
+    #home1,#category1{
+        /**
         display:none;
+
+        */
     }
     #mycart{
         padding-left:10px;
@@ -140,6 +152,10 @@ Mobile Elements to be hidden when screen size increses
 @media only screen and (max-width: 1290px) {
     #home1,#category1{
         display: none;
+        /**
+
+
+        */
     }
 }
 @media only screen and (max-width:755px){
@@ -155,7 +171,51 @@ Mobile Elements to be hidden when screen size increses
  #mycart,.login-buttons-responsive{
     display: none;
  }
+ #home1,#category1{
+     display:inline-block;
+ }
+    .individual-link {
+        display: inline-block;
+        /**
+        display: none;
 
+
+        display: inline-block;
+        */
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+        transition: 0.8s ease;
+        background-color: #24252A;
+        border: 1px solid white;
+        padding: 5px;
+        border-radius: 2px;
+    }
+        .individual-link::after {
+            content: "";
+            width: 0%;
+            height: 2px;
+            background: rgb(231, 31, 125);
+            display: block;
+            margin: auto;
+            transition: 0.7s;
+            margin-top: 0px;
+        }
+        .individual-link:hover {
+            background-color: #0787ffB2;
+            color: rgb(255, 255, 255);
+        }
+            .individual-link:hover::after {
+                width: 100%;
+            }
+   .individual-link{
+       /**
+       display:none;
+
+       */
+   }
+   #logout{
+       font-size:18px;
+   }
  .hamburger{
      display: block;
     cursor: pointer;
@@ -173,9 +233,9 @@ Mobile Elements to be hidden when screen size increses
 
 .nav-links{
     display: flex; 
-    position: fixed;
+    position: absolute;
     left:-100%;
-    
+    z-index:2;
     top: 0px;
     gap:0;
     flex-direction: column;
@@ -184,7 +244,14 @@ Mobile Elements to be hidden when screen size increses
     text-align: center;
     transition: left 1s ease;
 }
+.nav-links-responsive{
+    display:none;
+}
 .individual-link{
+    /**
+    display:none;
+
+    */
     margin:15px;
     padding:30px;
     background-color: rgba(56, 58, 66, 0.9);

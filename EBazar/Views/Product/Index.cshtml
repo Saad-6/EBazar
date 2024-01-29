@@ -64,13 +64,36 @@
                 }
                 else if (!User.Identity.IsAuthenticated)
                 {
-                    <a class="login" id="login" asp-area="Identity" asp-page="/Account/Login">Login to Add to Cart <i class="bi bi-cart"></i></a>
+                    <button class="login" id="login" type="button" onclick="showLoginModal()" > Add to Cart <i class="bi bi-cart"></i></button>
+                
                 }
 
 
         </div>
     </div>
     }
-</section>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark" >
+                    <h5 class="modal-title text-light" id="exampleModalLongTitle">Log In to add Items to your Cart</h5>
 
+                </div>
+                <div class="modal-body">
+                    Log In or Register to continure
+                </div>
+                <div class="modal-footer">
+                    <a class="butonnn" asp-controller="Product" asp-action="Index">Continue without Logging-In</a>
+                    <a class="buttonn" id="login" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+                    <p>New User? Sign-Up Here <a href="/Identity/Account/Register">Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function showLoginModal() {
+        $('#exampleModalCenter').modal('show');
+    }
+</script>
 

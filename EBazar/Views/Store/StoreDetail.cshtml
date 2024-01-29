@@ -1,0 +1,49 @@
+﻿@model Store
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    
+                    <p> Store : @Model.Name</p>
+                </div>
+                <div class="card-body">
+                    
+                   
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <section class="productdiv">
+                                @foreach (var item in Model.Products)
+                                {
+                                    <div class="product">
+                                        <div style="background-image:url('@item.PictureUrl') ;" class="productimage"></div>
+                                        <div class="productdetail">
+                                            <h3><b>@item.Name</b></h3>
+                                            <i>@item.Description</i>
+                                            <p>Rating</p>
+                                        </div>
+                                        <div class="priceandcart">
+                                            <p style="margin:0px 10px;">Price:<b>@item.Price$</b></p>
+                                            
+
+
+
+                                        </div>
+                                    </div>
+                                }
+                            </section>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+

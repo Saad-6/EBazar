@@ -1,0 +1,89 @@
+﻿@model AppUser
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+        .form-container .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    input, textarea {
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        button:hover {
+            background-color: #45a049;
+        }
+</style>
+
+<div class="form-container">
+    <div class="container">
+        <h2>Create Your Store</h2>
+        <form asp-action="CreateStore" method="post">
+            <label for="storeName">Store Name:</label>
+            <input asp-for="@Model.Store.Name" type="text" id="storeName" name="storeName" required>
+
+            <label for="description">Description:</label>
+            <textarea asp-for="@Model.Store.Description" id="description" name="description" required></textarea>
+
+            <button type="submit">Create Store</button>
+        </form>
+    </div>
+</div>

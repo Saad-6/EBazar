@@ -15,8 +15,6 @@
 </div>
 }
 
-@if (Model!=null)
-{
 
 
 
@@ -44,20 +42,51 @@
 
                         <form method="post" asp-controller="Order" asp-action="MakePayment" >
                             <label class="form-label" for="form7Example4">Address</label>
-                            <select style="padding:15px;" asp-for="@Model.Address.Province" id="Province" class="form-control">
+
+                        @if (Model.Address == null)
+                        {
+                            
+                            <select style="padding:15px;" required asp-for="@Model.Address.Province" id="Province" class="form-control">
                                 <option>Select Province</option>
                                 <option value="Punjab">Punjab</option>
                                 <option value="Sindh">Sindh</option>
                                 <option value="KPK">KPK</option>
                                 <option value="Balochistan">Balochistan</option>
                             </select>
-                            <select style="padding:15px;" asp-for="@Model.Address.District" id="District" class="form-control">
+                            <select style="padding:15px;" required asp-for="@Model.Address.District" id="District" class="form-control">
                                 <option>Select District</option>
 
                             </select>
-                            <input style="padding:15px;" asp-for="@Model.Address.StreetAddress" class="form-control form-control-sm" placeholder="Your Street Address" />
+                            <input required  style="padding:15px;" asp-for="@Model.Address.StreetAddress" class="form-control form-control-sm" placeholder="Your Street Address" />
+                        
+                        }
+                        
 
-                            <button type="submit" id="autosubmit" hidden>Submit</button>
+                        else
+                        {
+
+                            <div class="container" style="margin:45px; padding-right:100px;">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <select style="padding:15px;" id="Province" class="form-control form-control-lg">
+                                            <option>Province: @Model.Address.Province</option>
+                                        </select>
+                                        <select style="padding:15px;" id="District" class="form-control">
+                                            <option>District: @Model.Address.District</option>
+                                        </select>
+                                        <input style="padding:15px;" class="form-control form-control-sm" value="Street Address: @Model.Address.StreetAddress" />
+
+                                    </div>
+                                    <a class="btn btn-secondary" asp-controller="Account" asp-action="NewAddress">Enter a new address?</a>
+
+                                   
+                                </div>
+
+                            </div>
+
+                        }
+                        <button type="submit" id="autosubmit" hidden>Submit</button>
                         </form>
                     </div>
 
@@ -110,32 +139,9 @@
 
 
 
-}
-@if(Model!=null)
-{
-
-    <div class="container" style="margin:45px; padding-right:100px;">
-
-        <div class="row">
-            <div class="col-6">
-                <select class="form-control form-control-lg">
-                    <option>@Model.Address.Province</option>
-                </select>
-                <select class="form-control">
-                    <option>@Model.Address.District</option>
-                </select>
-                <input class="form-control form-control-sm" value="@Model.Address.StreetAddress" />
-
-            </div>
-            <a class="btn btn-secondary" asp-controller="" asp-action="">Enter a new address?</a>
-
-            <a class="btn btn-dark text-light" asp-controller="" asp-action="">Continue to payment</a>
-        </div>
-
-    </div>
 
 
-}
+
 @section scripts {
     <script>
         $(document).ready(function () {

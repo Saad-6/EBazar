@@ -80,7 +80,7 @@ namespace EBazar.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Handle the successful update (e.g., redirect to a success page)
+                    
                     return RedirectToAction("Index");
                 }
                 
@@ -88,6 +88,7 @@ namespace EBazar.Controllers
             }
             return RedirectToAction("Index");
         }
+        
 
         public IActionResult AdminIndex()
         {
@@ -101,6 +102,20 @@ namespace EBazar.Controllers
 
             return RedirectToAction("Index","Home");
         }
+        public async Task<IActionResult> NewAddressAsync()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var appUser = await _userManager.Users
+            .Include(u => u.Address)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+            appUser.Address=null;
+            
+            await  _userManager.UpdateAsync(appUser);
+
+
+            return RedirectToAction("Checkout", "Order");
+        }
+       
 
 
     }

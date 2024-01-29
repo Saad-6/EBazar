@@ -39,7 +39,7 @@ namespace EBazar.Controllers
             //Getting the product
             var prod=_context.Products.FirstOrDefault(p => p.Id == prodId);
 
-            //await _context.SaveChangesAsync();
+            
             //Calculating Total
             if (prod == null)
             {
@@ -54,7 +54,7 @@ namespace EBazar.Controllers
             .FirstOrDefaultAsync(u => u.Id == userId);
 
 
-           // var existingCartItem = await appUser.Cart.CartItems.Product;
+           
             bool isInCart = appUser.Cart.CartItems.Any(item => item.Product.Id == prodId);
             var cartItemExists = appUser.Cart.CartItems.FirstOrDefault(item => item.Product.Id == prodId);
             if (cartItemExists != null)

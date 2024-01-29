@@ -29,17 +29,15 @@
         </div>
 <nav>
     <ul class="nav-links-responsive">
-        <li><a href="#" id="home">Home</a></li>
+        <li><a asp-controller="Home" id="home">Home</a></li>
                 <li><a asp-controller="Product" id="allproducts">All Products</a></li>
-        <li><a href="#" id="category">By Category</a></li>
-        <li><a href="#" id="mycart"><i class="bi bi-cart"></i>My Cart</a></li>
     
     </ul>
     <ul class="nav-links">
         <li class="individual-link"><a id="home1" asp-controller="Home" asp-action="Index">Home</a></li>
         <li class="individual-link"><a asp-controller="Product" asp-action="Index" >All Products</a></li>
         <li class="individual-link"><a asp-controller="Cart" asp-action="Cart"><i class="bi bi-cart"></i>My Cart</a></li>
-        <li class="individual-link" ><a id="category1" href="#">By Category</a></li>
+        <li class="individual-link" ><a asp-controller="Store" asp-action="ByStore" id="category1" >By Store</a></li>
                 <partial name="_LoginPartial" />
     
     </ul>
@@ -68,6 +66,21 @@
     <footer class="border-top footer text-muted">
         
     </footer>
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navlinks = document.querySelector(".nav-links");
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle("active");
+            navlinks.classList.toggle("active");
+        });
+        document.querySelectorAll(".individual-link").forEach(n => {
+            n.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navlinks.classList.remove("active");
+            });
+        });
+
+        </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
